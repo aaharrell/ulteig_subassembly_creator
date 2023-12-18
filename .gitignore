@@ -1,0 +1,7 @@
+# Directories
+build/
+dist/
+
+# Specific Files
+*.xlsx
+*.spec
