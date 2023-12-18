@@ -1,6 +1,6 @@
 # Directories
 build/
-dist/
+dist/master_subassemblies_creator/
 
 # Specific Files
 *.xlsx
