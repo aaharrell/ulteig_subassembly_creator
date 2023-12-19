@@ -28,6 +28,25 @@ def create_subassy_info_df(drawing_path, drawing_list):
     if drawing_list[-1].split(".")[1] == "xlsx":
         df_subassy_info = pd.read_excel(os.path.join(drawing_path, drawing_list[-1]))
         return(df_subassy_info)
+    
+# Create and format spreadsheet
+def create_spreadsheet(spreadsheet_name, df):
+    # Create spreadsheet
+    df.to_excel(spreadsheet_name, index=False)
+
+    # Format spreadsheet
+    wb = load_workbook(spreadsheet_name)
+    ws = wb['Sheet1']
+    ws.auto_filter.ref = ws.dimensions
+    ws.column_dimensions['A'].width = 30
+    ws.column_dimensions['B'].width = 30
+    ws.column_dimensions['C'].width = 30
+    ws.column_dimensions['D'].width = 45
+    ws.column_dimensions['E'].width = 50
+    ws.column_dimensions['F'].width = 50
+    ws.column_dimensions['G'].width = 10
+    wb.save(spreadsheet_name)
+    return(wb)
 
 def main():
 
@@ -62,7 +81,7 @@ def main():
     # Create second dataframe with subassembly drawing information
     df_subassy_info = create_subassy_info_df(drawing_path, drawing_list)
 
-    # Create links and add other informational columns
+    # Create links for column 1 and add other columns
     for i in range(len(df_main.index)):
         link = make_link(drawing_path, drawing_list[i])
         df_main.at[i, col1] = link
@@ -73,22 +92,7 @@ def main():
         df_main.at[i, col6] = df_subassy_info.at[i, "dwgtitle4"]
         df_main.at[i, col7] = df_subassy_info.at[i, "revision"]
 
-    # Create spreadsheet
-    spreadsheet_name = "Master Subassemblies List.xlsx"
-    df_main.to_excel(spreadsheet_name, index=False)
-
-    # Format spreadsheet
-    wb = load_workbook(spreadsheet_name)
-    ws = wb['Sheet1']
-    ws.auto_filter.ref = ws.dimensions
-    ws.column_dimensions['A'].width = 30
-    ws.column_dimensions['B'].width = 30
-    ws.column_dimensions['C'].width = 30
-    ws.column_dimensions['D'].width = 45
-    ws.column_dimensions['E'].width = 50
-    ws.column_dimensions['F'].width = 50
-    ws.column_dimensions['G'].width = 10
-    wb.save(spreadsheet_name)
+    create_spreadsheet("Master Subassemblies List.xlsx", df_main)
 
     userIn = "-"
     while userIn != "":
