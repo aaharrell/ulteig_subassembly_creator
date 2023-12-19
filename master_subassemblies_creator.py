@@ -2,26 +2,25 @@ from openpyxl import load_workbook
 import os
 import pandas as pd
 
-
-# Linking helper function
-def make_link(drawing_path, drawing_name):
-    joined_path = os.path.join(drawing_path, drawing_name)
-    return '=HYPERLINK("{}", "{}")'.format(joined_path, drawing_name)
-
 # User instructions + get path to subassembly folder
 def get_subassembly_path():
     print("READ ME:")
-    print("\t1. Ensure the subassembly drawings are in the final desired directory to ensure correct linking.")
-    print("\t\tNOTE: Make sure there are no files open. If the subassemblies are in OneDrive, make sure allt the files have downloaded.")
-    print("\t2. Go the folder with your subassemblies using file explorer. Copy the path to this folder using the file explorer address bar.")
-    print("\t\tNOTE: This folder should ONLY contain the subassembly drawing files and optionally the Excel file with drawing information. See (3) below.")
-    print("\t3. If you have included the ProjectWise drawing information spreadsheet, ensure the drawing name begins with '_'\n")
-    userIn = input("Paste the path here and press Enter: ")
+    print("\t1. Ensure the subassembly drawings are in the final desired\n\t   directory to ensure correct linking.")
+    print("\t\tNOTE: Make sure there are no files open. If the subassemblies\n\t\t      are in OneDrive, make sure all of the files have downloaded.\n")
+    print("\t2. Go the folder with your subassemblies using file explorer.\n\t   Copy the path to this folder using the file explorer address bar.")
+    print("\t\tNOTE: This folder should ONLY contain the subassembly drawing files\n\t\t      and optionally the Excel file with drawing information. See (3) below.\n")
+    print("\t3. If you have included the ProjectWise drawing information spreadsheet,\n\t   ensure the spreadsheet name begins with \"_\"; e.g. \"_Subassembly Dwg Info.xlsx\"\n")
+    userIn = input("Paste the folder path here and press Enter: ")
 
     # Get path as string literal
     userIn = r'{}'.format(userIn)
     print("Processing...\n")
     return(userIn)
+
+# Linking helper function
+def make_link(drawing_path, drawing_name):
+    joined_path = os.path.join(drawing_path, drawing_name)
+    return '=HYPERLINK("{}", "{}")'.format(joined_path, drawing_name)
 
 # Get the subassembly drawing info and create a dataframe
 def create_subassy_info_df(drawing_path, drawing_list):
