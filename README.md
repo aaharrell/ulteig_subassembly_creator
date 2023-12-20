@@ -1,10 +1,46 @@
 # Created for use by Ulteig Engineering, Inc.  
-### By Austen Harrell  
+___
 
-master_subassemblies_creator.py should be compiled into an executable using the following:  
+##### By Austen Harrell  
+
+"master_subassemblies_creator.py" should be compiled into an executable using the following:  
   
 ```pyinstaller -y -F -c master_subassemblies_creator.py```  
+
+#### Source Code External Dependencies (`pip install <lib_name>` in cmd or powershell):  
+  * openpyxl
+  * pandas
   
-  
-The directory that this program is run on should contain _only_ the subassembly PDFs and one (1) .xlsx file exported from ProjectWise.
-- The naming for this file doesn't matter, however it should be prefixed by a "_".
+
+## Instructions:  
+### Retrieving the subassemblies:  
+  1. Go to Xcel's system.
+  2. Open Assembly Manager, then open the subassemblies list. Click on an active subassembly ProjectWise link.
+     *  Alternatively, enter the following URN: pw:\\PWNSP.Corp.Xcelenergy.com:ProjectWise_NSP_Draw\Documents\Xcel Masters and Templates\Transmission\Masters\XEL\Assemblies\Record\
+  3. Sort all subassembly in ascending (A-Z) order.
+  4. `Ctrl+a` to select all drawings.
+  5. `Right Click` -> "Export..." -> "Next" -> Choose/make a designated folder (e.g. "Subassemblies) in your OneDrive folder -> Export.
+
+
+### Creating the subassembly description Excel worksheet
+  1. Make sure the ProjectWise folder is still sorted as described above.
+  2. `Ctrl+a` to select all drawings.
+  3. `Right Click` -> "Copy List To" -> "Clipboard Tab Separated"
+  4. Open an instance of Microsoft Excel.
+  5. Paste into cell A1.
+  6. Save the notebook in the same location as all of the exported subassembly PDFs.
+     *  IMPORTANT: Must be saved as a .xlsx file.
+     *  IMPORTANT: The name of this file must start with "_" (e.g. "_Subassembly Details.xlsx), otherwise the specific naming doesn't matter.
+    
+
+
+  ### Creating the spreadsheet  
+  1. Move back to your Ulteig computer.
+  2. Ensure that there is a folder corresponding steps above.
+  3. Ensure that the contents of the folder have **both** fully downloaded to your computer and contain only the subassembly drawings and single "_ ... .xlsx" file.
+  4. Move this entire folder to the desired location on an Ulteig network drive.
+  5. Open the folder (you should see all of the drawings inside)
+  6. Copy the address to this folder in the address bar above.
+  7. Run "master_subassemblies_creator.exe"
+     *  You will paste the address into this application (may have to use `Right Click` to successfully paste into the console)
+  8. The Excel file will be created in the same folder that the .exe was executed from (see the SUCCESS message for exact location).
