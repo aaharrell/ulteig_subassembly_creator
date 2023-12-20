@@ -27,7 +27,15 @@ def create_subassy_info_df(drawing_path, drawing_list):
     if drawing_list[-1].split(".")[1] == "xlsx":
         df_subassy_info = pd.read_excel(os.path.join(drawing_path, drawing_list[-1]))
         return(df_subassy_info)
+    else:
+        return pd.DataFrame()
     
+def check_df_sizes(df1, df2):
+    if (len(df1.index) != len(df2.index)):
+        return False
+    else:
+        return True
+
 # Create and format spreadsheet
 def create_spreadsheet(spreadsheet_name, df):
     # Create spreadsheet
@@ -47,6 +55,13 @@ def create_spreadsheet(spreadsheet_name, df):
     wb.save(spreadsheet_name)
     return(wb)
 
+def user_close_app():
+    userIn = "-"
+    while userIn != "":
+        userIn = input("Press Enter to exit: ")
+    
+    return
+
 def main():
 
     # Get path to the subassemblies folder
@@ -54,11 +69,21 @@ def main():
 
     # Get list of drawings
     try:
-        drawing_list = os.listdir(drawing_path)
+        drawings = os.listdir(drawing_path)
+        drawing_list = []
+
+        # Create the drawing list from only PDF and Excel files
+        for i in range(len(drawings)):
+            if (len(drawings[i].split('.')) > 1):
+                if ((drawings[i].split('.')[1] == "pdf") or (drawings[i].split('.')[1] == "xlsx")):
+                    drawing_list.append(drawings[i])
     except:
         print("ERROR: Drawing directory not found; please verify the correct file location of the drawings.\n")
         main()
         return
+    
+    # Sort drawing alphabetically
+    drawing_list.sort()
 
     # Create primary dataframe using Pandas and subassembly drawing list
     col1 = "Drawing Name (Linked)"
@@ -69,7 +94,7 @@ def main():
     col6 = "Description 2"
     col7 = "Rev"
 
-    df_main = pd.DataFrame(drawing_list[:-2], index=None, columns=[col1], dtype=None, copy=None)
+    df_main = pd.DataFrame(drawing_list[:-1], index=None, columns=[col1], dtype=None, copy=None)
     df_main[col2] = "-"
     df_main[col3] = "-"
     df_main[col4] = "-"
@@ -79,6 +104,16 @@ def main():
 
     # Create second dataframe with subassembly drawing information
     df_subassy_info = create_subassy_info_df(drawing_path, drawing_list)
+
+    if (df_subassy_info.empty == True):
+        print("ERROR: ProjectWise Excel export not found. Please include and try again.\n")
+        user_close_app()
+        return
+    else:
+        if (check_df_sizes(df_main, df_subassy_info) != True):
+            print("ERROR: The number of PDF drawings in the folder does not equal the number of drawings in ProjectWise. Please fix and try again.\n")
+            user_close_app()
+            return
 
     # Create links for column 1 and add other columns
     for i in range(len(df_main.index)):
@@ -93,8 +128,7 @@ def main():
 
     create_spreadsheet("Master Subassemblies List.xlsx", df_main)
 
-    userIn = "-"
-    while userIn != "":
-        userIn = input("Operation success; check the folder containing this application for the spreadsheet.\nPress Enter to exit: ")
+    print("SUCCESS: check the folder containing this application for the spreadsheet.\n")
+    user_close_app()
 
 main()
