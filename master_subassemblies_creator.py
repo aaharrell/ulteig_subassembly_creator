@@ -128,7 +128,7 @@ def main():
 
     create_spreadsheet("Master Subassemblies List.xlsx", df_main)
 
-    print("SUCCESS: check the folder containing this application for the spreadsheet.\n")
+    print("SUCCESS: Excel spreadsheet created at '", drawing_path, "'\n")
     user_close_app()
 
 main()
