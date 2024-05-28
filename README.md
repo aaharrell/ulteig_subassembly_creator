@@ -22,7 +22,7 @@ ___
   5. `Right Click` -> "Export..." -> "Next" -> Choose/make a designated folder (e.g. "Subassemblies) in your OneDrive folder -> Export.
 
 
-### Creating the subassembly description Excel worksheet
+### Export the subassembly data from Xcel
   1. Make sure the ProjectWise folder is still sorted as described above.
   2. `Ctrl+a` to select all drawings.
   3. `Right Click` -> "Copy List To" -> "Clipboard Tab Separated"
@@ -34,13 +34,13 @@ ___
     
 
 
-  ### Creating the spreadsheet  
+  ### Creating the Ulteig reference spreadsheet  
   1. Move back to your Ulteig computer.
-  2. Ensure that there is a folder corresponding steps above.
-  3. Ensure that the contents of the folder have **both** fully downloaded to your computer and contain only the subassembly drawings and single "_ ... .xlsx" file.
-  4. Move this entire folder to the desired location on an Ulteig network drive.
-  5. Open the folder (you should see all of the drawings inside)
-  6. Copy the address to this folder in the address bar above.
-  7. Run "master_subassemblies_creator.exe"
-     *  You will paste the address into this application (may have to use `Right Click` to successfully paste into the console)
-  8. The Excel file will be created in the same folder that the .exe was executed from (see the SUCCESS message for exact location).
+  2. Ensure that the contents of the OneDrive folder (subassembly PDFs & Excel subassembly data) have **both** fully downloaded to your computer and contain only the subassembly drawings and single "_ ... .xlsx" file.
+  3. Move this entire OneDrive folder to the desired location on an Ulteig network drive.
+  4. Open the folder (you should see all of the drawings inside with the Excel spreadsheet at the top).
+  5. Copy the address to this folder using the file explorer address bar.
+  6. Run "master_subassemblies_creator.exe" from this repo; you can run this application from anywhere on your machine.
+     *  This application will open a console window.
+     *  You will paste the folder address into this application (may have to use `Right Click` to successfully paste into the console; 'Ctrl + p' should not work).
+  7. The final Excel file will be created in the same folder that the application was executed from (see the SUCCESS message for exact location of the Excel file).
