@@ -42,5 +42,5 @@ ___
   5. Copy the address to this folder using the file explorer address bar.
   6. Run "master_subassemblies_creator.exe" from this repo; you can run this application from anywhere on your machine.
      *  This application will open a console window.
-     *  You will paste the folder address into this application (may have to use `Right Click` to successfully paste into the console; 'Ctrl + p' should not work).
+     *  You will paste the folder address into this application (may have to use `Right Click` to successfully paste into the console; `Ctrl + p` should not work).
   7. The final Excel file will be created in the same folder that the application was executed from (see the SUCCESS message for exact location of the Excel file).
